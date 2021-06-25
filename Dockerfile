@@ -1,11 +1,9 @@
-FROM ubuntu
+FROM python:3-alpine
 
-RUN apt-get update  && apt-get install python python-pip
+RUN pip install --no-cache-dir flask
 
-RUN pip install flask
+COPY app.py /opt/
 
-COPY app.py opt/
+EXPOSE 8080
 
-EXPOSE 8080 
-
-ENTRYPOINT FLASK_APP=/opt/app.py run --host=0.0.0.0 --port=8080
+ENTRYPOINT FLASK_APP=/opt/app.py flask run --host=0.0.0.0 --port=8080
